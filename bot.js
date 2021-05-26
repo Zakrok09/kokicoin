@@ -57,8 +57,6 @@
 
   //Message delivered
   bot.on("message", async message => {
-    if (message.channel.id !== "846060039546470400") return;
-
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
     let prefix = botconfig.prefix;
