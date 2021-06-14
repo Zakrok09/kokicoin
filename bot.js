@@ -1,6 +1,9 @@
   const botconfig = require('./botconfig.json');
   const Discord = require("discord.js");
   const fs = require("fs");
+  const tailcat = require('tailcat');
+
+  let wallets_file_tail = new tailcat.TailCat('./wallets.json');
 
 
   var servers = {};
