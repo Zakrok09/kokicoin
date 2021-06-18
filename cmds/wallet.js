@@ -26,16 +26,10 @@ module.exports.run = async (bot,  message, args) => {
     if (payee.id === payer.id) return message.channel.send(invalid_input_embed);
     if (wallets_object[payer.id].balance <  amount) return message.channel.send(no_money);
     if (!wallets_object[payee.id]) return message.channel.send(no_wallet);
-
-    let transaction = {
-      amount,
-      payer,
-      payee
-    }
     
     let transaction_embed = new Discord.MessageEmbed().setColor('#3BB9EB').setTitle('Tranzakciq e gotova').setDescription(`Shte se izpulni na block: ${bot.block + 1}`).addField(`Tranzakciqta e:`,`[${payer.username}] -> [${payee.user.username}] (${amount})`).setAuthor('Kokicoin botkata').setAuthor('Kokicoin botkata');
 
-    bot.transactions.push(transaction);
+    bot.addTransaction(amount, payer, payee);
     message.channel.send(transaction_embed);
     
   } else if (args[0] === 'balance' || args[0] === "bal") {   

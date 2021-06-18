@@ -18,6 +18,21 @@
   bot.loststaking = [];
   bot.block = 0;
   bot.hash = 0;
+  /**
+   * @param  {} amount The amount of Kokicoin to be sent
+   * @param  {} payer The one who sends the Kokicoin
+   * @param  {} payee The one who recieves the Kokicoin
+   */
+  bot.addTransaction = function (amount, payer, payee) {
+    let transaction = {
+      amount,
+      payer,
+      payee
+    }
+
+    bot.transactions.push(transaction);
+  }
+  
   //Commands
 
   fs.readdir("./cmds/", (err, files) => {
