@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const helpers = require('../functions.js')
+
 
 module.exports.run = async (bot,  message, args) => {
   let wallets_object = JSON.parse(fs.readFileSync("wallets.json"));
@@ -42,7 +44,7 @@ module.exports.run = async (bot,  message, args) => {
     message.channel.send(wallet_embed);
     
   } else if (args[0] === "stake") {
-    invalid_input_embed = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('nevaliden input, pomqr').setAuthor('Kokicoin botkata').setDescription('znachi sq, pishesh $wallet stake [kolko steikvash] [procenta - 25% ili 10%].').addFields({name: 'trqbva amaaunta da e v cifri', value: '$wallet stake 10domata 25% <- ne stava'}, {name: 'ne moje <= 0', value: '$wallet stake -10 10% <- ne stava'});
+    invalid_input_embed = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('nevaliden input, pomqr').setAuthor('Kokicoin botkata').setDescription('znachi sq, pishesh $wallet stake [kolko steikvash] [procenta < 40% ].').addFields({name: 'trqbva amaaunta da e v cifri', value: '$wallet stake 10domata 25% <- ne stava'}, {name: 'ne moje <= 0', value: '$wallet stake -10 10% <- ne stava'});
     if(!args[1]) return message.channel.send(invalid_input_embed);
     if(!args[2]) return message.channel.send(invalid_input_embed);
 
@@ -60,57 +62,36 @@ module.exports.run = async (bot,  message, args) => {
     if (wallets_object[staker.id].balance <  amount) return message.channel.send(no_money);
     if (wallets_object[taxes].balance < (amount * 4)) return message.channel.send(no_money_kazino);
 
-    if (args[2] === "25%") {
-      let random_number = Math.floor(Math.random() * 100);
-      if (random_number < 25) {
-        let transaction = {
-          amount: amount * 2.5,
-          payer: taxes,
-          payee: staker
-        }
+    let percentage = args[2].split('');
+    if (percentage[percentage.length - 1] === "%") percentage.pop();
+    let clean_percentage = percentage.join('')/100;
 
-        bot.wonstaking.push(transaction);
-        let result = new Discord.MessageEmbed().setColor('#12CCAB').setTitle('🌟SPECHELI WEEE🌟').addField(`Taka drugar, speche li si: ${amount * 2.5}`, `Idvat na sledvashtiq block: ${bot.block + 1}`)
-        return message.channel.send(result);
-      } else {
+    if (clean_percentage > 0.4) return message.channel.send("e brat oshte malko 100% li iskash");
+    message.channel.send(clean_percentage);
 
-        let transaction = {
-          amount: amount,
-          payer: staker,
-          payee: taxes
-        }
-
-        bot.loststaking.push(transaction);
-        let result = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('❌ JALKAR ZAGUBI ❌').addField(`Taka jalkar, zagubi si: ${amount}`, `Otivat si na sledvashtiq block: ${bot.block + 1}`)
-        return message.channel.send(result);
+    if (helpers.staking_win_lose(clean_percentage)) {
+      let staked_amount = Math.round(helpers.staking_multiplier_function(clean_percentage) * amount);
+      let transaction = {
+        amount: staked_amount,
+        payer: taxes,
+        payee: staker
       }
-    } else if (args[2] === "10%") {
-      let random_number = Math.floor(Math.random() * 100);
-      if (random_number < 10) {
-        let transaction = {
-          amount: amount * 4,
-          payer: taxes,
-          payee: staker
-        }
 
-        bot.wonstaking.push(transaction);
-        let result = new Discord.MessageEmbed().setColor('#12CCAB').setTitle('🌟SPECHELI WEEE🌟').addField(`Taka drugar, speche li si: ${amount * 4}`, `Idvat na sledvashtiq block: ${bot.block + 1}`)
-        return message.channel.send(result);
-      } else {
-
-        let transaction = {
-          amount: amount,
-          payer: staker,
-          payee: taxes
-        }
-
-        bot.loststaking.push(transaction);
-        let result = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('❌ JALKAR ZAGUBI ❌').addField(`Taka jalkar, zagubi si: ${amount}`, `Otivat si na sledvashtiq block: ${bot.block + 1}`)
-        return message.channel.send(result);
-      }
+      bot.wonstaking.push(transaction);
+      let result = new Discord.MessageEmbed().setColor('#12CCAB').setTitle('🌟SPECHELI WEEE🌟').addField(`Taka drugar, speche li si: ${staked_amount}`, `Idvat na sledvashtiq block: ${bot.block + 1}`)
+      return message.channel.send(result);
     } else {
-      return message.channel.send(invalid_input_embed);
+      let transaction = {
+        amount: amount,
+        payer: staker,
+        payee: taxes
+      }
+
+      bot.loststaking.push(transaction);
+      let result = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('❌ JALKAR ZAGUBI ❌').addField(`Taka jalkar, zagubi si: ${amount}`, `Otivat si na sledvashtiq block: ${bot.block + 1}`)
+      return message.channel.send(result);
     }
+
   } else if (args[0] === "taxes") {
     
     let taxes_embed = new Discord.MessageEmbed().setColor('#B8E9DE').setTitle('Taxite (farmable) parite sa:').setDescription(`${wallets_object["genesis"].balance} kokicoina.`)
