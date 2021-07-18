@@ -95,12 +95,14 @@
   });
 
   
-
+  let trans_num = 1;
   bot.login(botconfig.token);
 
-  
+  fs.writeFile('./transactions.json', '{"transactions": []}', function(){console.log('Transactions cleared!')})
+
   bot.setInterval(function() {
     let wallets_object = JSON.parse(fs.readFileSync("wallets.json"));
+    let transaction_array = JSON.parse(fs.readFileSync("transactions.json"));
 
     bot.transactions.forEach(trans => {
       let old_payer_balance = wallets_object[trans.payer.id].balance;
@@ -118,28 +120,29 @@
           balance: new_payee_balance
       }
 
-      // let old_taxes = wallets_object["genesis"].balance;
-      // if (old_taxes > 1) {
-      //   let taxxed_payer_balance = parseInt(new_payer_balance) + parseInt(1);
-      //   let new_taxes = parseInt(old_taxes) - parseInt(1);
+      
+      let clean_trans = {
+        _number: trans_num,
+        _amount: trans.amount,
+        _payer: trans.payer.username,
+        _payee: trans.payee.user.username
+      }
+      trans_num++;
+      transaction_array.transactions.push(clean_trans);
 
-      //   wallets_object[trans.payer.id] = {
-      //     owner: trans.payer.username,
-      //     balance: taxxed_payer_balance
-      //   }
-
-      //   wallets_object["genesis"] = {
-      //     owner: "taxes",
-      //     balance: new_taxes
-      //   }
-      // }
+      
+ 
+    });
+    
+    var trans_data = JSON.stringify(transaction_array, null, 4)
+      fs.writeFile("transactions.json", trans_data, err => {
+        if(err) console.log(err);
+      })
       
       var data = JSON.stringify(wallets_object, null, 4);
         fs.writeFile("./wallets.json",data , err => {
-        if(err) console.log(err);;
+        if(err) console.log(err);
       });
- 
-    });
 
     bot.transactions = [];
 

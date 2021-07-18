@@ -147,9 +147,23 @@ module.exports.run = async (bot,  message, args) => {
         }
       });
     })
+  } else if (args[0] === "trans") {
+    let transaction_array = JSON.parse(fs.readFileSync("transactions.json"));
+    
+    let transes = transaction_array.transactions.sort((a,b) => b._number - a._number)
+    let transactions = new Discord.MessageEmbed().setColor('#B8E9DE').setTitle('Poslednite 1-5 transactii sa: ');
+    if (!transes[1]) {
+      transactions.setDescription('||nikakvi||');
+      return message.channel.send(transactions);
+    }
+    for(let x in transes) {
+      transactions.addField(`No.${transes[x]._number} - ${transes[x]._payer} to ${transes[x]._payee}`, `||Manqkat e dal celi ${transes[x]._amount} kokicoina na ${transes[x]._payee}||`);
+      if (x === "4") break;
+    }
+    message.channel.send(transactions);
   }
-  
 
+  
 }
 
 module.exports.help = {
