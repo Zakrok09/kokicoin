@@ -67,7 +67,7 @@ module.exports.run = async (bot,  message, args) => {
     let max_stake = Math.round((wallets_object[taxes].balance-10)/helpers.staking_multiplier_function(clean_percentage));
     if (clean_percentage > 0.4) return message.channel.send("e brat oshte malko 100% li iskash");
 
-    let no_money_kazino = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('Kazinoto e broke nqma staking').setDescription(`V kazinoto ima ${wallets_object["genesis"].balance}. Ti mojesh da stakenesh max ${max_stake}`).setAuthor('Kokicoin botkata');
+    let no_money_kazino = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('Kazinoto e broke nqma staking').setDescription(`V kazinoto ima ${wallets_object["genesis"].balance}. S tozi procent (${clean_percentage}) ti mojesh da stakenesh max ${max_stake}`).setAuthor('Kokicoin botkata');
     if (max_stake < amount) return message.channel.send(no_money_kazino);
     
     if (helpers.staking_win_lose(clean_percentage)) {
