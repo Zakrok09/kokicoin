@@ -56,21 +56,22 @@ module.exports.run = async (bot,  message, args) => {
     if (isNaN(amount)) return message.channel.send(invalid_input_embed);
     if (amount <= 0 ) return message.channel.send(invalid_input_embed)
 
-    
-    let no_money_kazino = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('Kazinoto e broke nqma staking').setDescription(`V kazinoto ima ${wallets_object["genesis"].balance}. Ti mojesh da stakenesh max ${wallets_object["genesis"].balance/4}`).setAuthor('Kokicoin botkata');
-
     if (wallets_object[staker.id].balance <  amount) return message.channel.send(no_money);
-    if (wallets_object[taxes].balance < (amount * 4)) return message.channel.send(no_money_kazino);
+    
 
     let percentage = args[2].split('');
     if (percentage[percentage.length - 1] === "%") percentage.pop();
     let clean_percentage = percentage.join('')/100;
 
+    let staked_amount = Math.round(helpers.staking_multiplier_function(clean_percentage)) * amount; 
+    let max_stake = Math.round((wallets_object[taxes].balance-10)/helpers.staking_multiplier_function(clean_percentage));
     if (clean_percentage > 0.4) return message.channel.send("e brat oshte malko 100% li iskash");
-    message.channel.send(clean_percentage);
 
+    let no_money_kazino = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('Kazinoto e broke nqma staking').setDescription(`V kazinoto ima ${wallets_object["genesis"].balance}. Ti mojesh da stakenesh max ${max_stake}`).setAuthor('Kokicoin botkata');
+    if (max_stake < amount) return message.channel.send(no_money_kazino);
+    
     if (helpers.staking_win_lose(clean_percentage)) {
-      let staked_amount = Math.round(helpers.staking_multiplier_function(clean_percentage) * amount);
+      
       let transaction = {
         amount: staked_amount,
         payer: taxes,
