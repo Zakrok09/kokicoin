@@ -103,7 +103,7 @@ module.exports.run = async (bot,  message, args) => {
     let leaderboard = "";
     let position = 1;
     whales.forEach(wallet => {
-      leaderboard = leaderboard + `\n${position}. ${wallets_object[wallet].owner}`;
+      leaderboard = leaderboard + `\n${position}. ${wallets_object[wallet].owner} - **${wallets_object[wallet].balance}** kokicoin`;
       position++;
     });
     let whales_board_embed = new Discord.MessageEmbed().setColor('#B8E9DE').setTitle('Walletite podredeni po-golemina:').setDescription(`${leaderboard}`)
