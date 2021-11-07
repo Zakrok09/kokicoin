@@ -161,6 +161,15 @@ module.exports.run = async (bot,  message, args) => {
       if (x === "4") break;
     }
     message.channel.send(transactions);
+  } else if (args[0] === "total") {
+    let balance_array = Object.keys(wallets_object).map(key => [wallets_object[key].balance]);
+    let total_kokicoin = 0;
+    for (let x of balance_array) {
+      total_kokicoin += Number(x);
+    }
+    let total_kokicoin_embed = new Discord.MessageEmbed().setColor('#B8E9DE').setTitle('💵 OBSHTO IMA 💵').addField('kokicoin bot', `** ${total_kokicoin} ** kokicoina koeto e mojebi ${total_kokicoin / 1000} nasiraniq na nikola`);
+    message.channel.send(total_kokicoin_embed);
+
   }
 
   

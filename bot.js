@@ -130,8 +130,6 @@
       trans_num++;
       transaction_array.transactions.push(clean_trans);
 
-      
- 
     });
     
     var trans_data = JSON.stringify(transaction_array, null, 4)
