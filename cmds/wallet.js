@@ -170,6 +170,29 @@ module.exports.run = async (bot,  message, args) => {
     let total_kokicoin_embed = new Discord.MessageEmbed().setColor('#B8E9DE').setTitle('💵 OBSHTO IMA 💵').addField('kokicoin bot', `** ${total_kokicoin} ** kokicoina koeto e mojebi ${total_kokicoin / 1000} nasiraniq na nikola`);
     message.channel.send(total_kokicoin_embed);
 
+  } else if (args[0] === "donate") {
+    invalid_input_embed = new Discord.MessageEmbed().setColor('#F05C5C').setTitle('nevaliden input, pomqr').setAuthor('Kokicoin botkata').setDescription('znachi sq, pishesh $wallet donate [kolko donatevash].').addFields({name: 'trqbva amaaunta da e v cifri', value: '$wallet donate deset <- ne stava'}, {name: 'ne moje <= 0', value: '$wallet donate -10 <- ne stava'});
+    if(!args[1]) return message.channel.send(invalid_input_embed);
+    if(args[1] === "laino") return message.channel.send("az shte ti dam laino v ostata ");
+
+    let amount = args[1];
+    let donator = message.author;
+    let taxes = "genesis";
+
+    if (isNaN(amount)) return message.channel.send(invalid_input_embed);
+    if (amount <= 0 ) return message.channel.send(invalid_input_embed)
+
+    if (wallets_object[donator.id].balance <  amount) return message.channel.send(no_money);
+
+    let transaction = {
+      amount: amount,
+      payer: donator,
+      payee: taxes
+    }
+
+    bot.loststaking.push(transaction);
+    let result = new Discord.MessageEmbed().setColor('#12CCAB').setTitle('👏 EVALATA !! ').addField(`Taka drugar, ti si mega qkiq i doneitna: ${amount} na banmkata`, `Shte stignat na sledvashtiq block: ${bot.block + 1}`)
+    return message.channel.send(result);
   }
 
   
