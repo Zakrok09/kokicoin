@@ -50,7 +50,7 @@ module.exports.run = async (bot,  message, args) => {
 
         var data = JSON.stringify(wallets_object, null, 4);
         fs.writeFile("./wallets.json",data , err => {
-        if(err) console.log(err);;
+        if(err) {};
         });
 
         let transaction_embed = new Discord.MessageEmbed().setColor('#3BB9EB').setTitle('Disconecta e gotov').setDescription(`Shte se izpulni na block: ${bot.block + 1}`).addField(`Tranzakciqta e:`,`[${user.username}] -> [${victim.user.username}] za 5 kokicoina`).setAuthor('Kokicoin botkata')

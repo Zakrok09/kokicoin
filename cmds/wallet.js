@@ -142,7 +142,7 @@ module.exports.run = async (bot,  message, args) => {
           delete wallets_object[message.author.id];
           var data = JSON.stringify(wallets_object, null, 4);
             fs.writeFile("./wallets.json",data , err => {
-            if(err) console.log(err);;
+            if(err) {};
           });
         }
       });
