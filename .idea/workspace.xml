@@ -4,24 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0aa94cf5-1b47-4818-92ae-1d88243ab31c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.deepsource.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmds/carve.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmds/info.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmds/newwallet.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmds/service.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmds/wallet.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions.json" beforeDir="false" />
+    <list default="true" id="0aa94cf5-1b47-4818-92ae-1d88243ab31c" name="Changes" comment="chore: setup v2">
+      <change afterPath="$PROJECT_DIR$/commands/ping.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -44,6 +41,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.run.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "v2.0",
@@ -57,6 +55,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="run" type="NodeJSConfigurationType" path-to-node="$USER_HOME$/.bun/bin/bun" node-parameters="bot.ts" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -72,11 +75,32 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704230921054</updated>
-      <workItem from="1704230929778" duration="964000" />
+      <workItem from="1704230929778" duration="1701000" />
     </task>
+    <task id="LOCAL-00001" summary="chore: setup v2">
+      <option name="closed" value="true" />
+      <created>1704231907848</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704231907848</updated>
+    </task>
+    <task id="LOCAL-00002" summary="chore: setup v2">
+      <option name="closed" value="true" />
+      <created>1704231933193</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704231933193</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: setup v2" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: setup v2" />
   </component>
 </project>
