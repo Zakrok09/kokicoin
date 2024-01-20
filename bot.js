@@ -36,19 +36,19 @@
   //Commands
 
   fs.readdir("./cmds/", (err, files) => {
-    if (err) console.error(err);
+    if (err) {}
 
     let jsfiles = files.filter(f => f.split(".").pop() === "js");
     if (jsfiles.length <= 0) {
-      console.log("No commands!!!!!!");
+      
       return;
     }
 
-    console.log(`Loading ${jsfiles.length} commands...`);
+    
 
     jsfiles.forEach((f, i) => {
       let props = require(`./cmds/${f}`)
-      console.log(`${i + 1}: ${f} loaded!`);
+      
       bot.commands.set(props.help.name, props);
     });
   });
@@ -58,16 +58,16 @@
   bot.on("ready", async () => {
     try {
       let link = await bot.generateInvite(["ADMINISTRATOR"]);
-      console.log(link);
+      
     } catch (e) {
       console.log(e.stack);
     }
     await bot.generateInvite("ADMINISTRATOR").then(link => {
-      console.log(link);
+      
     });
 
 
-    console.log(`Bot initialized - ${bot.user.username}`);
+    
 
 
     
@@ -88,7 +88,7 @@
 
     if (command.startsWith(prefix)) { 
       if (cmd) cmd.run(bot, message, args); 
-      console.log(`Kokicoin: ${message.author.username}#${message.author.discriminator} used command '${command}' on ${message.guild.name}`);
+      
     }
 
     });
@@ -98,7 +98,7 @@
   let trans_num = 1;
   bot.login(botconfig.token);
 
-  fs.writeFile('./transactions.json', '{"transactions": []}', function(){console.log('Transactions cleared!')})
+  fs.writeFile('./transactions.json', '{"transactions": []}', function(){})
 
   bot.setInterval(function() {
     let wallets_object = JSON.parse(fs.readFileSync("wallets.json"));
@@ -134,12 +134,12 @@
     
     var trans_data = JSON.stringify(transaction_array, null, 4)
       fs.writeFile("transactions.json", trans_data, err => {
-        if(err) console.log(err);
+        if(err) {}
       })
       
       var data = JSON.stringify(wallets_object, null, 4);
         fs.writeFile("./wallets.json",data , err => {
-        if(err) console.log(err);
+        if(err) {}
       });
 
     bot.transactions = [];
@@ -162,7 +162,7 @@
 
       var data = JSON.stringify(wallets_object, null, 4);
         fs.writeFile("./wallets.json",data , err => {
-        if(err) console.log(err);;
+        if(err) {};
       });
  
     });
@@ -187,7 +187,7 @@
 
       var data = JSON.stringify(wallets_object, null, 4);
         fs.writeFile("./wallets.json",data , err => {
-        if(err) console.log(err);;
+        if(err) {};
       });
  
     });
