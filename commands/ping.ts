@@ -1,5 +1,6 @@
 import {SlashCommandBuilder} from "discord.js";
 
+// export the data to be used in the main file
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
